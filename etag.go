@@ -29,7 +29,7 @@ const HeaderIfNoneMatch = "If-None-Match"
 
 // New will create an etag middleware
 func New(opts ...Option) app.HandlerFunc {
-	options := newOptions(opts)
+	options := newOptions(opts...)
 
 	var (
 		headerETag = []byte("Etag")
@@ -38,6 +38,7 @@ func New(opts ...Option) app.HandlerFunc {
 
 	return func(ctx context.Context, c *app.RequestContext) {
 		c.Next(ctx)
+
 		// skip etag if next returns true
 		if options.next != nil && options.next(ctx, c) {
 			c.Next(ctx)

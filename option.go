@@ -40,7 +40,7 @@ var defaultOptions = Options{
 	generator: nil,
 }
 
-func newOptions(opts []Option) *Options {
+func newOptions(opts ...Option) *Options {
 	options := &Options{
 		weak:      defaultOptions.weak,
 		next:      defaultOptions.next,
@@ -64,9 +64,9 @@ func WithWeak() Option {
 }
 
 // WithNext will skip etag middleware when return is true
-func WithNext(fn NextFunc) Option {
+func WithNext(next NextFunc) Option {
 	return func(o *Options) {
-		o.next = fn
+		o.next = next
 	}
 }
 
